@@ -20,7 +20,7 @@ var app = {
         description: 'A hand drum for people who like belly dancing.',
         details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         origin: 'Turkey',
-        imageUrl: 'https://goo.gl/Q7X6VB'
+        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFLZ9k6Lb6bE8imuBEs0o0Wl_Rvvf_FhOBZUkuHXr5yaTFi4dY'
       },
       {
         itemId: 3,
@@ -89,8 +89,25 @@ var app = {
   }
 }
 
-var $view = document.querySelector('[data-view="catalog"]')
-$view.appendChild(renderItem(app.catalog.items[0]))
+renderAppState(app.catalog.items)
+
+function renderAppState(state) {
+  var $view = document.querySelector('[data-view="catalog"]')
+  $view.appendChild(renderCatalog(state))
+}
+
+function renderCatalog(catalog) {
+  var $catalog = createElement('div', { class: 'container' }, ['Jamazon'])
+  var $row = createElement('div', { class: 'row' }, [])
+  $catalog.appendChild($row)
+  for (var i = 0; i < catalog.length; i++) {
+    var $col = createElement('div', { class: 'col-md-3' }, [])
+    var $catalogItem = renderItem(catalog[i])
+    $col.appendChild($catalogItem)
+    $row.appendChild($col)
+  }
+  return $catalog
+}
 
 function renderItem(item) {
   var $card =
