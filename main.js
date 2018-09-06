@@ -97,11 +97,12 @@ function renderAppState(state) {
 }
 
 function renderCatalog(catalog) {
-  var $catalog = createElement('div', { class: 'container' }, ['Jamazon'])
-  var $row = createElement('div', { class: 'row' }, [])
+  var $catalog = createElement('div', { class: 'container-fluid bg-dark pt-4' }, [
+    createElement('h1', {class: 'text-center text-light font-weight-light pt-4 pb-4'}, ['Jamazon'])])
+  var $row = createElement('div', { class: 'row m-4', style: 'height: auto' }, [])
   $catalog.appendChild($row)
   for (var i = 0; i < catalog.length; i++) {
-    var $col = createElement('div', { class: 'col-md-3' }, [])
+    var $col = createElement('div', { class: 'col-sm-4 pb-4' }, [])
     var $catalogItem = renderItem(catalog[i])
     $col.appendChild($catalogItem)
     $row.appendChild($col)
@@ -111,12 +112,13 @@ function renderCatalog(catalog) {
 
 function renderItem(item) {
   var $card =
-    createElement('div', { class: 'card', style: 'width: 18rem;' }, [
-      createElement('img', { class: 'card-img-top', src: item.imageUrl, alt: 'Card image cap' }, []),
+    createElement('div', { class: 'card border-danger p-4 mb-4', style: 'height: 40rem;' }, [
+      createElement('div', {class: 'card-body height: 18rem;'}, []),
+      createElement('img', { class: 'card-img pt-4', src: item.imageUrl }, []),
       createElement('div', {class: 'card-body'}, [
-        createElement('h1', {class: 'card-title'}, [item.name]),
-        createElement('h3', {class: 'card-text'}, [item.brand]),
-        createElement('p', {class: 'card-text'}, [item.price])
+        createElement('h1', {class: 'card-title mt-auto text-left'}, [item.name]),
+        createElement('h3', {class: 'card-text text-black-50 font-italic text-sm-left'}, [item.brand]),
+        createElement('p', {class: 'card-text text-info text-right'}, ['$' + item.price])
       ])
     ])
   return $card
