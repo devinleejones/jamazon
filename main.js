@@ -4,8 +4,8 @@ var app = {
     items: [
       {
         itemId: 1,
-        brand: 'Ludwig',
         name: 'Black Beauty',
+        brand: 'Ludwig',
         price: 749.99,
         description: 'A snare drum for people with too many drumsticks.',
         details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -87,4 +87,41 @@ var app = {
   details: {
     item: null
   }
+}
+
+var $view = document.querySelector('[data-view="catalog"]')
+$view.appendChild(renderItem(app.catalog.items[0]))
+
+function renderItem(item) {
+  var $card =
+    createElement('div', { class: 'card', style: 'width: 18rem;' }, [
+      createElement('img', { class: 'card-img-top', src: item.imageUrl, alt: 'Card image cap' }, []),
+      createElement('div', {class: 'card-body'}, [
+        createElement('h1', {class: 'card-title'}, [item.name]),
+        createElement('h3', {class: 'card-text'}, [item.brand]),
+        createElement('p', {class: 'card-text'}, [item.price])
+      ])
+    ])
+  return $card
+}
+
+function createElement(tagName, attributes, children) {
+  var $element = document.createElement(tagName)
+  if (attributes) {
+    for (var name in attributes) {
+      var value = attributes[name]
+      $element.setAttribute(name, value)
+    }
+  }
+  for (var i = 0; i < children.length; i++) {
+    var child = children[i]
+    if (child instanceof Node) {
+      $element.appendChild(child)
+    }
+    else {
+      var textNode = document.createTextNode(child)
+      $element.appendChild(textNode)
+    }
+  }
+  return $element
 }
