@@ -96,6 +96,16 @@ function renderAppState(state) {
   $catalog.appendChild(renderCatalog(state))
 }
 
+document
+  .querySelector('[data-view="catalog"]')
+  .addEventListener('click', function () {
+  //   var $itemId = event.target.closest('.data-item-id')
+  //   if (!$itemId) return
+  //   var item = $itemId.getAttribute('id')
+  //   var details =
+  // }
+  })
+
 function renderItemObject(itemID, catalogItems) {
   for (var i = 0; i < catalogItems.length; i++) {
     if (itemID === catalogItems[i].itemId) {
@@ -128,7 +138,7 @@ function renderCatalogItemDetails(catalogItem) {
 console.log(renderCatalogItemDetails(app.catalog.items[0]))
 
 function renderCatalog(catalog) {
-  var $catalog = createElement('div', { class: 'container-fluid bg-dark pt-4', id: 'data-item-id', style: 'height: 100%;' }, [
+  var $catalog = createElement('div', { class: 'container-fluid bg-dark pt-4', style: 'height: 100%;' }, [
     createElement('h1', {class: 'text-center text-light font-weight-light pt-4'}, ['Jamazon'])])
   var $row = createElement('div', { class: 'row align-items-stretch pb-4', style: 'height: auto;' }, [])
   $catalog.appendChild($row)
@@ -143,7 +153,7 @@ function renderCatalog(catalog) {
 
 function renderItem(item) {
   var $card =
-    createElement('div', { class: 'card border-danger align-self-stretch mt-4 py-2 pr-4 pl-4 w-100 d-flex' }, [
+    createElement('div', { class: 'card border-danger align-self-stretch mt-4 py-2 pr-4 pl-4 w-100 d-flex', Id: 'data-item-id' }, [
       createElement('h5', {class: 'card-title'}, [item.name]),
       createElement('div', {class: 'd-flex', style: 'height: 18.75rem;'}, [
         createElement('img', { class: 'card-img pt-4 align-self-center', src: item.imageUrl }, [])
