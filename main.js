@@ -96,6 +96,16 @@ function renderAppState(state) {
   $catalog.appendChild(renderCatalog(state))
 }
 
+function renderItemObject(itemID, catalogItems) {
+  for (var i = 0; i < catalogItems.length; i++) {
+    if (itemID === catalogItems[i].itemId) {
+      return catalogItems[i]
+    }
+  }
+}
+
+console.log(renderItemObject(1, app.catalog.items))
+
 function renderCatalogItemDetails(catalogItem) {
   var $itemDetails =
   createElement('div', {class: 'container-fluid p-4 bg-dark'}, [
