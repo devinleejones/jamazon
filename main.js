@@ -92,9 +92,30 @@ var app = {
 renderAppState(app.catalog.items)
 
 function renderAppState(state) {
-  var $view = document.querySelector('[data-view="catalog"]')
-  $view.appendChild(renderCatalog(state))
+  var $catalog = document.querySelector('[data-view="catalog"]')
+  $catalog.appendChild(renderCatalog(state))
 }
+
+function renderCatalogItemDetails(catalogItem) {
+  var $itemDetails =
+  createElement('div', {class: 'container-fluid p-4 bg-dark'}, [
+    createElement('div', {class: 'card border-danger', style: 'width: 40rem; margin: 0 auto;'}, [
+      createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl}, []),
+      createElement('h5', {class: 'card-title ml-2'}, [catalogItem.name, ' - ',
+        createElement('span', {class: 'text-black-50 font-italic'}, [catalogItem.description])
+      ]),
+      createElement('div', {class: 'card-body'}, [
+        createElement('p', {class: 'card-text'}, [catalogItem.details])
+      ]),
+      createElement('div', {class: 'card-footer'}, [
+        createElement('p', {class: 'card-text text-success text-right'}, [('$' + catalogItem.price)])
+      ])
+    ])
+  ])
+  return $itemDetails
+}
+
+console.log(renderCatalogItemDetails(app.catalog.items[0]))
 
 function renderCatalog(catalog) {
   var $catalog = createElement('div', { class: 'container-fluid bg-dark pt-4', style: 'height: 100%;' }, [
