@@ -97,12 +97,12 @@ function renderAppState(state) {
 }
 
 function renderCatalog(catalog) {
-  var $catalog = createElement('div', { class: 'container-fluid bg-dark pt-4' }, [
-    createElement('h1', {class: 'text-center text-light font-weight-light pt-4 pb-4'}, ['Jamazon'])])
-  var $row = createElement('div', { class: 'row m-4', style: 'height: auto' }, [])
+  var $catalog = createElement('div', { class: 'container-fluid bg-dark pt-4', style: 'height: 100%;' }, [
+    createElement('h1', {class: 'text-center text-light font-weight-light pt-4'}, ['Jamazon'])])
+  var $row = createElement('div', { class: 'row align-items-stretch pb-4', style: 'height: auto;' }, [])
   $catalog.appendChild($row)
   for (var i = 0; i < catalog.length; i++) {
-    var $col = createElement('div', { class: 'col-sm-4 pb-4' }, [])
+    var $col = createElement('div', { class: 'col-md-3 d-flex', style: 'height: auto' }, [])
     var $catalogItem = renderItem(catalog[i])
     $col.appendChild($catalogItem)
     $row.appendChild($col)
@@ -112,13 +112,13 @@ function renderCatalog(catalog) {
 
 function renderItem(item) {
   var $card =
-    createElement('div', { class: 'card border-danger p-4 mb-4', style: 'height: 40rem;' }, [
-      createElement('div', {class: 'card-body height: 18rem;'}, []),
-      createElement('img', { class: 'card-img pt-4', src: item.imageUrl }, []),
-      createElement('div', {class: 'card-body'}, [
-        createElement('h1', {class: 'card-title mt-auto text-left'}, [item.name]),
-        createElement('h3', {class: 'card-text text-black-50 font-italic text-sm-left'}, [item.brand]),
-        createElement('p', {class: 'card-text text-info text-right'}, ['$' + item.price])
+    createElement('div', { class: 'card border-danger align-self-stretch mt-4 py-2 pr-4 pl-4 w-100 d-flex' }, [
+      createElement('h5', {class: 'card-title'}, [item.name]),
+      createElement('div', {class: 'd-flex', style: 'height: 18.75rem;'}, [
+        createElement('img', { class: 'card-img pt-4 align-self-center', src: item.imageUrl }, [])
+      ]),
+      createElement('h4', {class: 'card-text text-black-50 font-italic mt-4'}, [item.brand,
+        createElement('span', {class: 'card-text text-success float-right'}, ['$' + item.price])
       ])
     ])
   return $card
