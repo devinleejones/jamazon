@@ -128,7 +128,7 @@ function renderCatalogItemDetails(catalogItem) {
 console.log(renderCatalogItemDetails(app.catalog.items[0]))
 
 function renderCatalog(catalog) {
-  var $catalog = createElement('div', { class: 'container-fluid bg-dark pt-4', style: 'height: 100%;' }, [
+  var $catalog = createElement('div', { class: 'container-fluid bg-dark pt-4', id: 'data-item-id', style: 'height: 100%;' }, [
     createElement('h1', {class: 'text-center text-light font-weight-light pt-4'}, ['Jamazon'])])
   var $row = createElement('div', { class: 'row align-items-stretch pb-4', style: 'height: auto;' }, [])
   $catalog.appendChild($row)
