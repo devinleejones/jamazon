@@ -90,6 +90,7 @@ var app = {
 }
 
 renderAppState(app.catalog.items)
+console.log(renderCatalogItemDetails(app.catalog.items[0]))
 
 function renderAppState(state) {
   var $catalog = document.querySelector('[data-view="catalog"]')
@@ -98,23 +99,23 @@ function renderAppState(state) {
 
 document
   .querySelector('[data-view="catalog"]')
-  .addEventListener('click', function () {
-  //   var $itemId = event.target.closest('.data-item-id')
-  //   if (!$itemId) return
-  //   var item = $itemId.getAttribute('id')
-  //   var details =
-  // }
+  .addEventListener('click', function (event) {
+    var $item = event.target.closest('.card')
+    if (!$item) return
+    var itemNum = parseInt($item.getAttribute('data-item-id'), 10)
+    var item = findItem(itemNum, app.catalog.items)
+    app.details.item = item
+    app.view = 'details'
+    console.log(app)
   })
 
-function renderItemObject(itemID, catalogItems) {
+function findItem(itemID, catalogItems) {
   for (var i = 0; i < catalogItems.length; i++) {
     if (itemID === catalogItems[i].itemId) {
       return catalogItems[i]
     }
   }
 }
-
-console.log(renderItemObject(1, app.catalog.items))
 
 function renderCatalogItemDetails(catalogItem) {
   var $itemDetails =
@@ -135,8 +136,6 @@ function renderCatalogItemDetails(catalogItem) {
   return $itemDetails
 }
 
-console.log(renderCatalogItemDetails(app.catalog.items[0]))
-
 function renderCatalog(catalog) {
   var $catalog = createElement('div', { class: 'container-fluid bg-dark pt-4', style: 'height: 100%;' }, [
     createElement('h1', {class: 'text-center text-light font-weight-light pt-4'}, ['Jamazon'])])
@@ -153,7 +152,7 @@ function renderCatalog(catalog) {
 
 function renderItem(item) {
   var $card =
-    createElement('div', { class: 'card border-danger align-self-stretch mt-4 py-2 pr-4 pl-4 w-100 d-flex', Id: 'data-item-id' }, [
+    createElement('div', { class: 'card border-danger align-self-stretch mt-4 py-2 pr-4 pl-4 w-100 d-flex', 'data-item-id': item.itemId }, [
       createElement('h5', {class: 'card-title'}, [item.name]),
       createElement('div', {class: 'd-flex', style: 'height: 18.75rem;'}, [
         createElement('img', { class: 'card-img pt-4 align-self-center', src: item.imageUrl }, [])
