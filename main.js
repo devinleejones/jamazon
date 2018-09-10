@@ -106,8 +106,14 @@ function showView(view) {
 }
 
 function renderAppState(state) {
-  var $catalog = document.querySelector('[data-view]')
-  $catalog.appendChild(renderCatalog(state.catalog.items))
+  var $catalog = document.querySelector('[data-view="' + state.view + '"]')
+  if (state.view === 'details') {
+    $catalog.appendChild(renderCatalogItemDetails(state.details.item))
+  }
+  else {
+    $catalog.appendChild(renderCatalog(state.catalog.items))
+  }
+  showView(state.view)
 }
 
 document
@@ -135,7 +141,7 @@ function renderCatalogItemDetails(catalogItem) {
   createElement('div', {class: 'container-fluid p-4 bg-dark'}, [
     createElement('div', {class: 'card border-danger', style: 'width: 40rem; margin: 0 auto;'}, [
       createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl}, []),
-      createElement('h5', {class: 'card-title ml-2'}, [catalogItem.name, ' - ',
+      createElement('h5', {class: 'card-title ml-4'}, [catalogItem.name, ' - ',
         createElement('span', {class: 'text-black-50 font-italic'}, [catalogItem.description])
       ]),
       createElement('div', {class: 'card-body'}, [
