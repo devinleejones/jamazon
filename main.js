@@ -93,7 +93,6 @@ renderAppState(app)
 
 function showView(view) {
   var $views = document.querySelectorAll('[data-view]')
-  console.log($views)
   for (var i = 0; i < $views.length; i++) {
     var $view = $views[i]
     if ($view.getAttribute('data-view') === view) {
