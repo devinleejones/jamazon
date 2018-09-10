@@ -89,25 +89,37 @@ var app = {
   }
 }
 
-renderAppState(app.catalog.items)
-console.log(renderCatalogItemDetails(app.catalog.items[0]))
-console.log(findItem(1, app.catalog.items))
+renderAppState(app)
+
+function showView(view) {
+  var $views = document.querySelectorAll('[data-view]')
+  console.log($views)
+  for (var i = 0; i < $views.length; i++) {
+    var $view = $views[i]
+    if ($view.getAttribute('data-view') === view) {
+      $view.classList.remove('hidden')
+    }
+    else {
+      $view.classList.add('hidden')
+    }
+  }
+}
 
 function renderAppState(state) {
-  var $catalog = document.querySelector('[data-view="catalog"]')
-  $catalog.appendChild(renderCatalog(state))
+  var $catalog = document.querySelector('[data-view]')
+  $catalog.appendChild(renderCatalog(state.catalog.items))
 }
 
 document
-  .querySelector('[data-view="catalog"]')
+  .querySelector('[data-view]')
   .addEventListener('click', function (event) {
     var $item = event.target.closest('.card')
     if (!$item) return
     var itemNum = parseInt($item.getAttribute('data-item-id'), 10)
-    var item = findItem(itemNum, app.catalog.items)
-    app.details.item = item
+    var myItem = findItem(itemNum, app.catalog.items)
+    app.details.item = myItem
     app.view = 'details'
-    console.log(app)
+    renderAppState(app)
   })
 
 function findItem(itemID, catalogItems) {
