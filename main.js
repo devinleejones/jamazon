@@ -91,6 +91,7 @@ var app = {
 
 renderAppState(app.catalog.items)
 console.log(renderCatalogItemDetails(app.catalog.items[0]))
+console.log(findItem(1, app.catalog.items))
 
 function renderAppState(state) {
   var $catalog = document.querySelector('[data-view="catalog"]')
