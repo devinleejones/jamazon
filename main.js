@@ -20,7 +20,7 @@ var app = {
         description: 'A hand drum for people who like belly dancing.',
         details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         origin: 'Turkey',
-        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFLZ9k6Lb6bE8imuBEs0o0Wl_Rvvf_FhOBZUkuHXr5yaTFi4dY'
+        imageUrl: 'https://static.bax-shop.nl/image/product/153173/302981/0c2d119f/450x450/Meinl_HE_124_darbuka.jpg'
       },
       {
         itemId: 3,
@@ -86,10 +86,41 @@ var app = {
   },
   details: {
     item: null
-  }
+  },
+  cart: []
 }
 
 renderAppState(app)
+
+document
+  .querySelector('[data-view = details]')
+  .addEventListener('click', function (event) {
+    var $cart = event.target.closest('.btn-danger')
+    if (!$cart) return
+    var $currentItem = app.details.item
+    app.cart.push($currentItem)
+    renderAppState(app)
+  })
+
+document
+  .querySelector('[data-view]')
+  .addEventListener('click', function (event) {
+    var $item = event.target.closest('.card')
+    if (!$item) return
+    var itemNum = parseInt($item.getAttribute('data-item-id'), 10)
+    var myItem = findItem(itemNum, app.catalog.items)
+    app.details.item = myItem
+    app.view = 'details'
+    renderAppState(app)
+  })
+
+function renderCartCount(cart) {
+  var $cart =
+  createElement('div', {class: 'cart-item-count float-right pr-3 pt-3 text-light'}, ['Cart (' + cart.length + ')'])
+  return $cart
+}
+
+renderCartCount(app)
 
 function showView(view) {
   var $views = document.querySelectorAll('[data-view]')
@@ -105,27 +136,22 @@ function showView(view) {
 }
 
 function renderAppState(state) {
+  var $cart = document.querySelector('.cart')
   var $catalog = document.querySelector('[data-view="' + state.view + '"]')
-  if (state.view === 'details') {
-    $catalog.appendChild(renderCatalogItemDetails(state.details.item))
+  if (state.view === 'catalog') {
+    $catalog.innerHTML = ''
+    $cart.innerHTML = ''
+    $cart.appendChild(renderCartCount(app.cart))
+    $catalog.appendChild(renderCatalog(state.catalog.items))
   }
   else {
-    $catalog.appendChild(renderCatalog(state.catalog.items))
+    $catalog.innerHTML = ''
+    $cart.innerHTML = ''
+    $cart.appendChild(renderCartCount(app.cart))
+    $catalog.appendChild(renderCatalogItemDetails(state.details.item))
   }
   showView(state.view)
 }
-
-document
-  .querySelector('[data-view]')
-  .addEventListener('click', function (event) {
-    var $item = event.target.closest('.card')
-    if (!$item) return
-    var itemNum = parseInt($item.getAttribute('data-item-id'), 10)
-    var myItem = findItem(itemNum, app.catalog.items)
-    app.details.item = myItem
-    app.view = 'details'
-    renderAppState(app)
-  })
 
 function findItem(itemID, catalogItems) {
   for (var i = 0; i < catalogItems.length; i++) {
@@ -140,14 +166,15 @@ function renderCatalogItemDetails(catalogItem) {
   createElement('div', {class: 'container-fluid p-4 bg-dark'}, [
     createElement('div', {class: 'card border-danger', style: 'width: 40rem; margin: 0 auto;'}, [
       createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl}, []),
-      createElement('h5', {class: 'card-title ml-4'}, [catalogItem.name, ' - ',
-        createElement('span', {class: 'text-black-50 font-italic'}, [catalogItem.description])
+      createElement('h5', {class: 'card-title pt-4 ml-4 text-center'}, [catalogItem.name, ' - ',
+        createElement('span', {class: 'text-black-50 font-italic text-center'}, [catalogItem.description])
       ]),
       createElement('div', {class: 'card-body'}, [
         createElement('p', {class: 'card-text'}, [catalogItem.details])
       ]),
       createElement('div', {class: 'card-footer'}, [
-        createElement('p', {class: 'card-text text-success text-right'}, [('$' + catalogItem.price)])
+        createElement('p', {class: 'card-text text-success text-right pr-2 pt-1'}, [('$' + catalogItem.price)]),
+        createElement('button', {class: 'btn-danger p-2 float-right rounded'}, ['Add to Cart'])
       ])
     ])
   ])
