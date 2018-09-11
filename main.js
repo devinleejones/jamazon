@@ -99,7 +99,7 @@ document
     if (!$cart) return
     var $currentItem = app.details.item
     app.cart.push($currentItem)
-    console.log(app.cart)
+    renderAppState(app)
   })
 
 document
@@ -120,7 +120,7 @@ function renderCartCount(cart) {
     count = count + 1
   }
   var $cart =
-  createElement('div', {class: 'cart-item-count float-right pr-3 pt-3 text-light'}, ['Cart (' + count + ')'])
+  createElement('div', {class: 'cart-item-count float-right pr-3 pt-3 text-light'}, ['Cart (' + cart.length + ')'])
   return $cart
 }
 
@@ -150,6 +150,8 @@ function renderAppState(state) {
   }
   else {
     $catalog.innerHTML = ''
+    $cart.innerHTML = ''
+    $cart.appendChild(renderCartCount(app.cart))
     $catalog.appendChild(renderCatalogItemDetails(state.details.item))
   }
   showView(state.view)
