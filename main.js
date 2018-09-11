@@ -87,20 +87,18 @@ var app = {
   details: {
     item: null
   },
-  cart: {
-    items: null
-  }
+  cart: []
 }
 
 renderAppState(app)
 
-function cartCount(items) {
+function renderCartCount(cart) {
   var $count =
-  createElement('span', {class: 'cart-item-count'}, ['Cart ' + items.cart.items])
+  createElement('div', {class: 'cart-item-count float-right pr-3 pt-3 text-light'}, ['Cart (' + cart.length + ')'])
   return $count
 }
 
-cartCount(app)
+renderCartCount(app)
 
 function showView(view) {
   var $views = document.querySelectorAll('[data-view]')
@@ -116,12 +114,15 @@ function showView(view) {
 }
 
 function renderAppState(state) {
+  var $cart = document.querySelector('.cart')
   var $catalog = document.querySelector('[data-view="' + state.view + '"]')
-  if (state.view === 'details') {
-    $catalog.appendChild(renderCatalogItemDetails(state.details.item))
+  if (state.view === 'catalog') {
+    $catalog.innerHTML = ''
+    $cart.appendChild(renderCartCount(app.cart))
+    $catalog.appendChild(renderCatalog(state.catalog.items))
   }
   else {
-    $catalog.appendChild(renderCatalog(state.catalog.items))
+    $catalog.appendChild(renderCatalogItemDetails(state.details.item))
   }
   showView(state.view)
 }
