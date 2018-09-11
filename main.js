@@ -152,14 +152,15 @@ function renderCatalogItemDetails(catalogItem) {
   createElement('div', {class: 'container-fluid p-4 bg-dark'}, [
     createElement('div', {class: 'card border-danger', style: 'width: 40rem; margin: 0 auto;'}, [
       createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl}, []),
-      createElement('h5', {class: 'card-title ml-4'}, [catalogItem.name, ' - ',
+      createElement('h5', {class: 'card-title pt-4 ml-4'}, [catalogItem.name, ' - ',
         createElement('span', {class: 'text-black-50 font-italic'}, [catalogItem.description])
       ]),
       createElement('div', {class: 'card-body'}, [
         createElement('p', {class: 'card-text'}, [catalogItem.details])
       ]),
       createElement('div', {class: 'card-footer'}, [
-        createElement('p', {class: 'card-text text-success text-right'}, [('$' + catalogItem.price)])
+        createElement('p', {class: 'card-text text-success text-right'}, [('$' + catalogItem.price)]),
+        createElement('button', {class: 'p-2 btn-danger float-right rounded'}, ['Add to Cart'])
       ])
     ])
   ])
