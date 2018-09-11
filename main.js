@@ -115,10 +115,6 @@ document
   })
 
 function renderCartCount(cart) {
-  var count = 0
-  for (var i = 0; i < cart.length; i++) {
-    count = count + 1
-  }
   var $cart =
   createElement('div', {class: 'cart-item-count float-right pr-3 pt-3 text-light'}, ['Cart (' + cart.length + ')'])
   return $cart
