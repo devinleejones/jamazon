@@ -95,6 +95,15 @@ renderAppState(app)
 document
   .querySelector('[data-view = details]')
   .addEventListener('click', function (event) {
+    var $return = event.target.closest('.btn-dark')
+    if (!$return) return
+    app.view = 'catalog'
+    renderAppState(app)
+  })
+
+document
+  .querySelector('[data-view = details]')
+  .addEventListener('click', function (event) {
     var $cart = event.target.closest('.btn-danger')
     if (!$cart) return
     var $currentItem = app.details.item
