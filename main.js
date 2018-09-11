@@ -20,7 +20,7 @@ var app = {
         description: 'A hand drum for people who like belly dancing.',
         details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         origin: 'Turkey',
-        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFLZ9k6Lb6bE8imuBEs0o0Wl_Rvvf_FhOBZUkuHXr5yaTFi4dY'
+        imageUrl: 'https://static.bax-shop.nl/image/product/153173/302981/0c2d119f/450x450/Meinl_HE_124_darbuka.jpg'
       },
       {
         itemId: 3,
@@ -87,10 +87,20 @@ var app = {
   details: {
     item: null
   },
-  cart: []
+  cart: {
+    items: null
+  }
 }
 
 renderAppState(app)
+
+function cartCount(items) {
+  var $count =
+  createElement('span', {class: 'cart-item-count'}, ['Cart ' + items.cart.items])
+  return $count
+}
+
+cartCount(app)
 
 function showView(view) {
   var $views = document.querySelectorAll('[data-view]')
