@@ -86,7 +86,8 @@ var app = {
   },
   details: {
     item: null
-  }
+  },
+  cart: []
 }
 
 renderAppState(app)
