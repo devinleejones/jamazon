@@ -95,6 +95,15 @@ renderAppState(app)
 document
   .querySelector('[data-view = details]')
   .addEventListener('click', function (event) {
+    var $return = event.target.closest('.btn-dark')
+    if (!$return) return
+    app.view = 'catalog'
+    renderAppState(app)
+  })
+
+document
+  .querySelector('[data-view = details]')
+  .addEventListener('click', function (event) {
     var $cart = event.target.closest('.btn-danger')
     if (!$cart) return
     var $currentItem = app.details.item
@@ -165,7 +174,7 @@ function renderCatalogItemDetails(catalogItem) {
   var $itemDetails =
   createElement('div', {class: 'container-fluid p-4 bg-dark'}, [
     createElement('div', {class: 'card border-danger', style: 'width: 40rem; margin: 0 auto;'}, [
-      createElement('img', {class: 'card-img-top', src: catalogItem.imageUrl}, []),
+      createElement('img', {class: 'card-img-top pt-5', src: catalogItem.imageUrl}, []),
       createElement('h5', {class: 'card-title pt-4 ml-4 text-center'}, [catalogItem.name, ' - ',
         createElement('span', {class: 'text-black-50 font-italic text-center'}, [catalogItem.description])
       ]),
@@ -174,7 +183,8 @@ function renderCatalogItemDetails(catalogItem) {
       ]),
       createElement('div', {class: 'card-footer'}, [
         createElement('p', {class: 'card-text text-success text-right pr-2 pt-1'}, [('$' + catalogItem.price)]),
-        createElement('button', {class: 'btn-danger p-2 float-right rounded'}, ['Add to Cart'])
+        createElement('button', {class: 'btn-danger p-2 float-right rounded'}, ['Add to Cart']),
+        createElement('button', {class: 'btn-dark p-2 float-right rounded mr-2'}, ['Return to Catalog'])
       ])
     ])
   ])
